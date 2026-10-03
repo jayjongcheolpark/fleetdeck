@@ -25,16 +25,61 @@ Press `Enter` on any row to open a detail view: a task with all its meta keys an
 
 ## Install
 
+### From a release
+
+Each [GitHub Release](https://github.com/jayjongcheolpark/fleetdeck/releases) has a `fleetdeck-<version>-<target>.tar.gz` archive for these targets:
+
+| Target | Platform |
+| --- | --- |
+| `aarch64-apple-darwin` | macOS on Apple silicon |
+| `x86_64-apple-darwin` | macOS on Intel |
+| `x86_64-unknown-linux-gnu` | Linux x86_64 |
+| `aarch64-unknown-linux-gnu` | Linux arm64 |
+
+Each archive holds the `fleetdeck` binary, this README and the license.
+
+1. Set the version and the target:
+
+   ```sh
+   VERSION=0.1.0
+   TARGET=aarch64-apple-darwin
+   ```
+
+2. Download the archive and the `SHA256SUMS` file:
+
+   ```sh
+   BASE=https://github.com/jayjongcheolpark/fleetdeck/releases/download/v$VERSION
+   curl -fLO "$BASE/fleetdeck-$VERSION-$TARGET.tar.gz"
+   curl -fLO "$BASE/SHA256SUMS"
+   ```
+
+3. Check the archive against `SHA256SUMS`.
+   On macOS, use `shasum -a 256` in place of `sha256sum`.
+
+   ```sh
+   sha256sum --check --ignore-missing SHA256SUMS
+   ```
+
+4. Extract the archive and put the binary on your `PATH`:
+
+   ```sh
+   tar -xzf "fleetdeck-$VERSION-$TARGET.tar.gz"
+   install -m 755 "fleetdeck-$VERSION-$TARGET/fleetdeck" ~/.local/bin/fleetdeck
+   ```
+
+If you download the archive with a browser, macOS can block the binary because it is not signed.
+To allow it, run `xattr -d com.apple.quarantine ~/.local/bin/fleetdeck`.
+
+### With cargo
+
 You need a Rust toolchain (1.88 or later) to build from source.
 
 ```sh
-cargo install --git https://github.com/jayjongcheolpark/fleetdeck fleetdeck
+cargo install --git https://github.com/jayjongcheolpark/fleetdeck --tag v0.1.0 fleetdeck
 ```
 
+Omit `--tag` to build the latest `main`.
 From a clone of this repository, use `cargo install --path crates/fleetdeck`.
-
-The CI workflow also builds release binaries for macOS arm64 (`aarch64-apple-darwin`) and Linux x86_64 (`x86_64-unknown-linux-gnu`).
-Download them from the artifacts of a CI run on the Actions tab.
 
 ## Configure
 
