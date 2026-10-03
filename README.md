@@ -25,7 +25,39 @@ Press `Enter` on any row to open a detail view: a task with all its meta keys an
 
 ## Install
 
-### From a release
+### With the install script
+
+Run this command on macOS or Linux:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/jayjongcheolpark/fleetdeck/main/install.sh | sh
+```
+
+The script downloads the release archive for your OS and CPU, checks it against the release's `SHA256SUMS`, and installs `fleetdeck` to `~/.local/bin`.
+If that directory is not on your `PATH`, the script tells you the line to add to your shell profile.
+
+- To install to a different directory, set `FLEETDECK_INSTALL_DIR`: `curl -fsSL … | FLEETDECK_INSTALL_DIR=/usr/local/bin sh`.
+- To install a specific version, set `FLEETDECK_VERSION`, for example `FLEETDECK_VERSION=0.2.0`.
+
+### Update
+
+To replace the installed binary with the latest release, run:
+
+```sh
+fleetdeck update
+```
+
+`fleetdeck update` reads the latest [GitHub Release](https://github.com/jayjongcheolpark/fleetdeck/releases), downloads the archive for the target that the running binary was built for, and checks it against `SHA256SUMS`.
+It runs the new binary once with `--version`, then renames it over the running binary.
+If any step fails, the old binary stays in place.
+It needs no GitHub token.
+
+To only check whether a newer release exists, run `fleetdeck update --check`.
+
+`fleetdeck update` works for a binary from the install script or from a release archive.
+If you installed with cargo, update with cargo.
+
+### From a release archive
 
 Each [GitHub Release](https://github.com/jayjongcheolpark/fleetdeck/releases) has a `fleetdeck-<version>-<target>.tar.gz` archive for these targets:
 
@@ -41,7 +73,7 @@ Each archive holds the `fleetdeck` binary, this README and the license.
 1. Set the version and the target:
 
    ```sh
-   VERSION=0.1.0
+   VERSION=0.2.0
    TARGET=aarch64-apple-darwin
    ```
 
@@ -75,7 +107,7 @@ To allow it, run `xattr -d com.apple.quarantine ~/.local/bin/fleetdeck`.
 You need a Rust toolchain (1.88 or later) to build from source.
 
 ```sh
-cargo install --git https://github.com/jayjongcheolpark/fleetdeck --tag v0.1.0 fleetdeck
+cargo install --git https://github.com/jayjongcheolpark/fleetdeck --tag v0.2.0 fleetdeck
 ```
 
 Omit `--tag` to build the latest `main`.
@@ -130,6 +162,12 @@ Other modes:
 
 - `fleetdeck --json` prints the collected snapshots as JSON.
 - `fleetdeck --frame 160x45 --tab work --select 0` prints one rendered frame as text.
+
+fleetdeck reads every home again after `refresh_secs`.
+When the terminal reports that it lost focus, fleetdeck stops the timed reads and shows `paused` in the status bar.
+When the terminal gets focus again, fleetdeck reads every home immediately and starts the timer again.
+`r` still reads every home while fleetdeck is paused.
+A terminal that does not report focus changes never pauses fleetdeck.
 
 ## Screenshots
 

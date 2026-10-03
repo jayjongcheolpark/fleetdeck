@@ -1,6 +1,7 @@
 //! TUI state and key handling. Rendering lives in `ui.rs`.
 
 use std::collections::{HashMap, HashSet};
+use std::time::Duration;
 
 use fleetdeck_core::backlog::Section;
 use fleetdeck_core::collect::now_epoch;
@@ -86,6 +87,9 @@ pub struct App {
     pub detail: Option<Detail>,
     pub help: bool,
     pub refreshing: bool,
+    /// The terminal reported that it lost focus, so the timed refresh waits.
+    /// A terminal that sends no focus events never sets this.
+    pub paused: bool,
     pub last_refresh: Option<i64>,
     pub prs: HashMap<String, PrStatus>,
     pub prs_loading: HashSet<String>,
@@ -108,6 +112,7 @@ impl App {
             detail: None,
             help: false,
             refreshing: false,
+            paused: false,
             last_refresh: None,
             prs: HashMap::new(),
             prs_loading: HashSet::new(),
@@ -192,6 +197,26 @@ impl App {
         if !self.refreshing {
             self.refreshing = true;
             self.requests.push(Request::Refresh);
+        }
+    }
+
+    /// True when the timed refresh must start: `since_start` has passed
+    /// since the last refresh started, no refresh runs, and the terminal has focus.
+    pub fn refresh_due(&self, since_start: Duration) -> bool {
+        !self.paused
+            && !self.refreshing
+            && since_start >= Duration::from_secs(self.config.refresh_secs)
+    }
+
+    pub fn focus_lost(&mut self) {
+        self.paused = true;
+    }
+
+    /// Reads every home now; the timer starts again from this refresh.
+    pub fn focus_gained(&mut self) {
+        if self.paused {
+            self.paused = false;
+            self.request_refresh();
         }
     }
 
@@ -535,6 +560,36 @@ mod tests {
         assert_eq!(a.content_sel, 3);
         a.on_key(Key::Up, &rows, 10);
         assert_eq!(a.content_sel, 1);
+    }
+
+    #[test]
+    fn focus_loss_pauses_the_timer_and_focus_gain_refreshes() {
+        let mut a = app();
+        let late = Duration::from_secs(a.config.refresh_secs);
+        assert!(a.refresh_due(late));
+        assert!(!a.refresh_due(late - Duration::from_secs(1)));
+
+        a.focus_lost();
+        assert!(a.paused);
+        assert!(!a.refresh_due(late * 10));
+
+        // The manual refresh key still works while paused.
+        a.on_key(Key::Char('r'), &[], 10);
+        assert_eq!(a.requests, [Request::Refresh]);
+        a.requests.clear();
+        a.refresh_finished();
+
+        a.focus_gained();
+        assert!(!a.paused);
+        assert_eq!(a.requests, [Request::Refresh]);
+        assert!(!a.refresh_due(late), "the gain refresh is still running");
+        a.refresh_finished();
+        assert!(a.refresh_due(late));
+
+        // A second gain, or a gain without a loss, does not refresh again.
+        a.requests.clear();
+        a.focus_gained();
+        assert!(a.requests.is_empty());
     }
 
     #[test]

@@ -930,12 +930,20 @@ fn footer_bar(f: &mut Frame, app: &App, area: Rect) {
     } else {
         "↑↓ move · Tab pane · 1-4/[ ] tabs · Enter open · r refresh · p PRs · ? help · q quit"
     };
-    let line = Line::from(vec![
+    let mut spans = vec![
         Span::styled(" fleetdeck ", Style::new().fg(Color::Black).bg(Color::Cyan)),
         Span::styled(
             " read-only ",
             Style::new().fg(Color::Black).bg(Color::Green),
         ),
+    ];
+    if app.paused {
+        spans.push(Span::styled(
+            " paused ",
+            Style::new().fg(Color::Black).bg(Color::Yellow),
+        ));
+    }
+    spans.extend([
         Span::raw(format!(
             " {refresh} · every {}s · ",
             app.config.refresh_secs
@@ -947,7 +955,7 @@ fn footer_bar(f: &mut Frame, app: &App, area: Rect) {
                 .map_or_else(String::new, |m| format!(" · {m}")),
         ),
     ]);
-    f.render_widget(Paragraph::new(line), area);
+    f.render_widget(Paragraph::new(Line::from(spans)), area);
 }
 
 fn centered(area: Rect, pw: u16, ph: u16) -> Rect {

@@ -13,3 +13,7 @@ ratatui.workspace = true
 anyhow.workspace = true
 serde_json.workspace = true
 unicode-width.workspace = true
+self_update = { version = "1.3", default-features = false, features = ["ureq", "rustls", "github", "archive-tar", "compression-tar-gz", "checksums"] }
+
+[dev-dependencies]
+sha2 = "0.10"
