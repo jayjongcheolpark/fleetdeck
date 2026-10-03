@@ -9,6 +9,7 @@ fleetdeck - read-only terminal dashboard for firstmate fleets
 
 USAGE:
     fleetdeck [OPTIONS]
+    fleetdeck update [--check]
 
 OPTIONS:
     -c, --config <FILE>      Config file (default: ~/.config/fleetdeck/config.toml)
@@ -21,6 +22,10 @@ OPTIONS:
         --select <N>         Home row for --frame (0-based)
     -h, --help               Show this help
     -V, --version            Show the version
+
+COMMANDS:
+    update                   Install the latest GitHub Release over this binary
+    update --check           Only report whether a newer release exists
 
 With no config file and no --home, fleetdeck shows $FM_HOME, else the
 current directory when it looks like a firstmate home.
@@ -41,9 +46,14 @@ pub enum Parsed {
     Run(Args),
     Help,
     Version,
+    Update { check: bool },
 }
 
-pub fn parse(mut it: impl Iterator<Item = String>) -> Result<Parsed, String> {
+pub fn parse(it: impl Iterator<Item = String>) -> Result<Parsed, String> {
+    let mut it = it.peekable();
+    if it.next_if(|a| a == "update").is_some() {
+        return parse_update(it);
+    }
     let mut a = Args::default();
     let value = |it: &mut dyn Iterator<Item = String>, flag: &str| {
         it.next().ok_or_else(|| format!("{flag} needs a value"))
@@ -93,6 +103,18 @@ pub fn parse(mut it: impl Iterator<Item = String>) -> Result<Parsed, String> {
         }
     }
     Ok(Parsed::Run(a))
+}
+
+fn parse_update(it: impl Iterator<Item = String>) -> Result<Parsed, String> {
+    let mut check = false;
+    for arg in it {
+        match arg.as_str() {
+            "--check" => check = true,
+            "-h" | "--help" => return Ok(Parsed::Help),
+            other => return Err(format!("unknown argument to update: {other}\n\n{USAGE}")),
+        }
+    }
+    Ok(Parsed::Update { check })
 }
 
 fn basename(p: &str) -> &str {
@@ -171,5 +193,19 @@ mod tests {
         assert!(args(&["--frame", "12"]).is_err());
         assert!(args(&["--bogus"]).is_err());
         assert!(matches!(args(&["-h"]), Ok(Parsed::Help)));
+    }
+
+    #[test]
+    fn parses_update() {
+        assert!(matches!(
+            args(&["update"]),
+            Ok(Parsed::Update { check: false })
+        ));
+        assert!(matches!(
+            args(&["update", "--check"]),
+            Ok(Parsed::Update { check: true })
+        ));
+        assert!(args(&["update", "--bogus"]).is_err());
+        assert!(args(&["--json", "update"]).is_err());
     }
 }

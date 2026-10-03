@@ -2,6 +2,7 @@ mod app;
 mod cli;
 mod detail;
 mod ui;
+mod update;
 
 use std::sync::mpsc::{self, Receiver, Sender};
 use std::sync::{Arc, Mutex};
@@ -15,7 +16,10 @@ use fleetdeck_core::model::HomeSnapshot;
 use fleetdeck_core::pr::{self, PrStatus};
 use ratatui::Terminal;
 use ratatui::backend::TestBackend;
-use ratatui::crossterm::event::{self, Event, KeyCode, KeyEventKind, KeyModifiers};
+use ratatui::crossterm::event::{
+    self, DisableFocusChange, EnableFocusChange, Event, KeyCode, KeyEventKind, KeyModifiers,
+};
+use ratatui::crossterm::execute;
 
 use app::{App, Key, Request, Tab};
 
@@ -49,6 +53,13 @@ fn main() {
         }
         cli::Parsed::Version => {
             println!("fleetdeck {}", env!("CARGO_PKG_VERSION"));
+            return;
+        }
+        cli::Parsed::Update { check } => {
+            if let Err(e) = update::run(check) {
+                eprintln!("fleetdeck: {e:#}");
+                std::process::exit(1);
+            }
             return;
         }
         cli::Parsed::Run(a) => a,
@@ -235,9 +246,10 @@ fn apply(app: &mut App, u: Update) {
 
 fn run_tui(config: Config) -> Result<()> {
     let (tx, rx): (Sender<Update>, Receiver<Update>) = mpsc::channel();
-    let refresh_every = Duration::from_secs(config.refresh_secs);
     let mut app = App::new(config);
     let mut terminal = ratatui::init();
+    // Terminals that support it report focus changes; the others send nothing.
+    let _ = execute!(std::io::stdout(), EnableFocusChange);
     let result = (|| -> Result<()> {
         let mut last_start = Instant::now();
         app.request_refresh();
@@ -245,7 +257,7 @@ fn run_tui(config: Config) -> Result<()> {
             while let Ok(u) = rx.try_recv() {
                 apply(&mut app, u);
             }
-            if !app.refreshing && last_start.elapsed() >= refresh_every {
+            if app.refresh_due(last_start.elapsed()) {
                 app.request_refresh();
             }
             for req in std::mem::take(&mut app.requests) {
@@ -262,18 +274,24 @@ fn run_tui(config: Config) -> Result<()> {
                 let body_w = f.area().width.saturating_sub(24);
                 targets = ui::rows(&app, body_w).targets;
             })?;
-            if event::poll(Duration::from_millis(200))?
-                && let Event::Key(k) = event::read()?
-                && k.kind == KeyEventKind::Press
-                && let Some(key) = key_of(k.code, k.modifiers)
-            {
-                app.on_key(key, &targets, page);
+            if event::poll(Duration::from_millis(200))? {
+                match event::read()? {
+                    Event::Key(k) if k.kind == KeyEventKind::Press => {
+                        if let Some(key) = key_of(k.code, k.modifiers) {
+                            app.on_key(key, &targets, page);
+                        }
+                    }
+                    Event::FocusLost => app.focus_lost(),
+                    Event::FocusGained => app.focus_gained(),
+                    _ => {}
+                }
             }
             if app.quit {
                 return Ok(());
             }
         }
     })();
+    let _ = execute!(std::io::stdout(), DisableFocusChange);
     ratatui::restore();
     result
 }

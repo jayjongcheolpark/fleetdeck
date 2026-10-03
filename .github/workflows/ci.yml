@@ -22,8 +22,8 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo fmt --all -- --check
       - run: cargo clippy --all-targets --all-features --locked -- -D warnings
-      - name: ShellCheck the gather script
-        run: shellcheck -s sh crates/fleetdeck-core/src/gather.sh
+      - name: ShellCheck the shell scripts
+        run: shellcheck -s sh crates/fleetdeck-core/src/gather.sh install.sh
 
   test:
     # The gather script runs on GNU (Linux) and BSD (macOS) userlands.
