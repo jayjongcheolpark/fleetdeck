@@ -1,0 +1,13 @@
+window=default:w5:p2
+endpoint_task_id=release-notes-sept
+worktree=@ROOT@/.worktrees/docs-site-4d5e6f/1/docs-site
+project=@ROOT@/firstmate/projects/docs-site
+harness=claude
+kind=ship
+mode=direct-PR
+yolo=on
+branch=fm/release-notes-sept
+model=claude-sonnet-5-5
+effort=medium
+busy_gen=g@T-9000@.3003.4004
+backend=herdr

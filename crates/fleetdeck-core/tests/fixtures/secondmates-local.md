@@ -1,0 +1,1 @@
+- shop-mate - Own one product area for the main firstmate (trimmed summary). (home: /Users/me/.worktrees/firstmate-0a1b2c/1/firstmate; scope: shop app development and inventory sync integration for orders and stock, multi-store, store address/region/warehouse; projects: shop; added 2026-08-05)

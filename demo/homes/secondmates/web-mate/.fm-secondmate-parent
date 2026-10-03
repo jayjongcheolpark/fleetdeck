@@ -1,0 +1,3 @@
+schema=fm-secondmate-parent.v1
+route=local
+parent_home=@ROOT@/firstmate

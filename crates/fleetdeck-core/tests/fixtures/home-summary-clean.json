@@ -1,0 +1,62 @@
+{
+  "schema": "fm-secondmate-home-summary.v1",
+  "hold_classifier_schema": "fm-captain-hold-buckets.v1",
+  "contributions": {
+    "known": 0,
+    "checked": 0,
+    "counts": {
+      "captain": 0,
+      "fleet": 0,
+      "maintainer": 0,
+      "nobody": 0
+    },
+    "unmeasured": 0,
+    "complete": true,
+    "proven_clear": true,
+    "stale_verdicts": 0,
+    "missing_verdicts": 0,
+    "unreadable_records": 0,
+    "valid_until": 900,
+    "captain": [],
+    "captain_omitted": 0
+  },
+  "generated": "2026-10-03T03:26:04Z",
+  "generated_epoch": 1790997964,
+  "home": "/home/dev/secondmates/bot-mate",
+  "valid": true,
+  "reason": null,
+  "invalidity": {
+    "kind": null,
+    "ids": []
+  },
+  "state": "no_active_work",
+  "active_children": [],
+  "decisions_open": [],
+  "holds": [],
+  "queued": [],
+  "landed": [
+    {
+      "id": "bot-pr50-review",
+      "title": "Review chat-bot PR 50 (webhook retries) for a teammate",
+      "kind": "scout",
+      "hold_kind": null,
+      "pr_url": null,
+      "report_path": "data/bot-pr50-review/report.md",
+      "local_note": null,
+      "completion": {
+        "verb": "reported",
+        "date": "2026-09-30"
+      }
+    }
+  ],
+  "endpoints": [],
+  "counts": {
+    "active_children": 0,
+    "decisions_open": 0,
+    "holds": 0,
+    "queued": 0,
+    "landed": 1,
+    "endpoints": 0
+  },
+  "omitted": []
+}

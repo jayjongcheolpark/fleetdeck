@@ -1,0 +1,4 @@
+working [at=@T-85000@]: setup done; current retry is a fixed 5 s loop with no cap
+working [at=@T-40000@]: backoff and dead-letter queue implemented; 41 tests pass
+working [at=@T-5000@]: PR https://github.com/acme/billing-api/pull/77 opened
+working [at=@T-600@]: CI integration job failed on a flaky Postgres container start; re-running

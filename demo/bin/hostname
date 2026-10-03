@@ -1,0 +1,3 @@
+#!/bin/sh
+# Demo stand-in for hostname.
+echo "${DEMO_HOSTNAME:-laptop}"

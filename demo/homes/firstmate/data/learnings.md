@@ -1,0 +1,50 @@
+# Learnings
+
+- The checkout E2E suite needs the payments sandbox running first.
+- Catalog search reads from the replica; a write followed by a search can lag up to 2 s.
+- Release notes come from merged PR titles, so PR titles must be user-facing.
+- The design-system package publishes on tag only; bump the version in the same PR.
+- Staging resets its database every Monday at 06:00 UTC.
+- Feature flags live in config/flags.yaml in the shop repo, not in the dashboard.
+- Lighthouse runs in CI on the three top pages; a drop over 5 points fails the build.
+- The billing webhooks retry with backoff for 24 h; handlers must be idempotent.
+- The checkout E2E suite needs the payments sandbox running first.
+- Catalog search reads from the replica; a write followed by a search can lag up to 2 s.
+- Release notes come from merged PR titles, so PR titles must be user-facing.
+- The design-system package publishes on tag only; bump the version in the same PR.
+- Staging resets its database every Monday at 06:00 UTC.
+- Feature flags live in config/flags.yaml in the shop repo, not in the dashboard.
+- Lighthouse runs in CI on the three top pages; a drop over 5 points fails the build.
+- The billing webhooks retry with backoff for 24 h; handlers must be idempotent.
+- The checkout E2E suite needs the payments sandbox running first.
+- Catalog search reads from the replica; a write followed by a search can lag up to 2 s.
+- Release notes come from merged PR titles, so PR titles must be user-facing.
+- The design-system package publishes on tag only; bump the version in the same PR.
+- Staging resets its database every Monday at 06:00 UTC.
+- Feature flags live in config/flags.yaml in the shop repo, not in the dashboard.
+- Lighthouse runs in CI on the three top pages; a drop over 5 points fails the build.
+- The billing webhooks retry with backoff for 24 h; handlers must be idempotent.
+- The checkout E2E suite needs the payments sandbox running first.
+- Catalog search reads from the replica; a write followed by a search can lag up to 2 s.
+- Release notes come from merged PR titles, so PR titles must be user-facing.
+- The design-system package publishes on tag only; bump the version in the same PR.
+- Staging resets its database every Monday at 06:00 UTC.
+- Feature flags live in config/flags.yaml in the shop repo, not in the dashboard.
+- Lighthouse runs in CI on the three top pages; a drop over 5 points fails the build.
+- The billing webhooks retry with backoff for 24 h; handlers must be idempotent.
+- The checkout E2E suite needs the payments sandbox running first.
+- Catalog search reads from the replica; a write followed by a search can lag up to 2 s.
+- Release notes come from merged PR titles, so PR titles must be user-facing.
+- The design-system package publishes on tag only; bump the version in the same PR.
+- Staging resets its database every Monday at 06:00 UTC.
+- Feature flags live in config/flags.yaml in the shop repo, not in the dashboard.
+- Lighthouse runs in CI on the three top pages; a drop over 5 points fails the build.
+- The billing webhooks retry with backoff for 24 h; handlers must be idempotent.
+- The checkout E2E suite needs the payments sandbox running first.
+- Catalog search reads from the replica; a write followed by a search can lag up to 2 s.
+- Release notes come from merged PR titles, so PR titles must be user-facing.
+- The design-system package publishes on tag only; bump the version in the same PR.
+- Staging resets its database every Monday at 06:00 UTC.
+- Feature flags live in config/flags.yaml in the shop repo, not in the dashboard.
+- Lighthouse runs in CI on the three top pages; a drop over 5 points fails the build.
+- The billing webhooks retry with backoff for 24 h; handlers must be idempotent.

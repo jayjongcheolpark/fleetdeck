@@ -1,0 +1,4 @@
+{"v":1,"ts":@T-430000@,"event":"task.merged","task":"invoice-number-gaps","via":"report"}
+{"v":1,"ts":@T-85500@,"event":"task.dispatched","task":"webhook-retry-backoff","kind":"ship","project":"billing-api","harness":"claude","model":"claude-opus-5-5"}
+{"v":1,"ts":@T-5000@,"event":"task.pr_ready","task":"webhook-retry-backoff","pr":"https://github.com/acme/billing-api/pull/77"}
+{"v":1,"ts":@T-2100@,"event":"task.dispatched","task":"nightly-backup-audit","kind":"scout","project":"billing-api","harness":"codex","model":"gpt-5.5"}

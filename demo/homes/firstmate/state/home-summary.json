@@ -1,0 +1,14 @@
+{
+  "schema": "fm-secondmate-home-summary.v1",
+  "generated": "@ISO-180@",
+  "generated_epoch": @T-180@,
+  "home": "@ROOT@/firstmate",
+  "valid": true,
+  "reason": null,
+  "state": "active_work",
+  "decisions_open": [
+    {"id": "search-latency", "key": "cache-strategy", "verb": "needs-decision", "summary": "two ways to cut the facet query", "source": "status"},
+    {"id": "web-mate", "key": "dark-mode-tokens", "verb": "blocked", "summary": "dark-mode-toggle needs the new color tokens", "source": "status"}
+  ],
+  "counts": {"active_children": 5, "decisions_open": 2, "holds": 1, "queued": 3, "landed": 2, "endpoints": 5}
+}

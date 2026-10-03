@@ -1,0 +1,3 @@
+working [at=@T-20000@]: setup done; the banner text comes from the CMS
+working [at=@T-16000@]: PR https://github.com/acme/shop/pull/415 opened
+working [at=@T-700@]: main moved under the PR; rebasing on the new layout component, then re-running the visual tests

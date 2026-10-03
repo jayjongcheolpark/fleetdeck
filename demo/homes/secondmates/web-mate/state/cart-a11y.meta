@@ -1,0 +1,9 @@
+endpoint_task_id=cart-a11y
+harness=claude
+kind=ship
+mode=no-mistakes
+yolo=off
+branch=fm/cart-a11y
+model=claude-sonnet-5-5
+effort=high
+backend=herdr

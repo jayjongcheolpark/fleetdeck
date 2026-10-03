@@ -1,0 +1,4 @@
+working [at=@T-7100@]: setup done; reproduced the double charge with the sandbox card 4000 0000 0000 0341
+working [at=@T-5400@]: fix implemented: one retry with a new idempotency key, behind the retry_declined flag
+working [at=@T-3000@]: tests and lint pass locally; pipeline running
+working [at=@T-900@]: PR https://github.com/acme/shop/pull/412 opened; review round 1 in progress

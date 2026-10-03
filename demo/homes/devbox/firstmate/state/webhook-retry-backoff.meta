@@ -1,0 +1,10 @@
+endpoint_task_id=webhook-retry-backoff
+harness=claude
+kind=ship
+mode=no-mistakes
+yolo=off
+branch=fm/webhook-retry-backoff
+model=claude-opus-5-5
+effort=high
+backend=tmux
+pr=https://github.com/acme/billing-api/pull/77

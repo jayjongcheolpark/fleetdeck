@@ -1,0 +1,12 @@
+window=default:w4:p2
+endpoint_task_id=search-latency
+worktree=@ROOT@/.worktrees/shop-1a2b3c/2/shop
+project=@ROOT@/firstmate/projects/shop
+harness=codex
+kind=ship
+mode=direct-PR
+yolo=off
+branch=fm/search-latency
+model=gpt-5.5
+effort=high
+backend=herdr

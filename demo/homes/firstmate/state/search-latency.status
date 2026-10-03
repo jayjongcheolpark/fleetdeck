@@ -1,0 +1,3 @@
+working [at=@T-80000@]: setup done; baseline p95 is 840 ms on the catalog page
+working [at=@T-60000@]: profiled: 70% of the time is the facet count query
+needs-decision [at=@T-1500@] [key=cache-strategy]: two ways to cut the facet query: (a) cache facet counts for 60 s in Redis, (b) precompute counts nightly; (a) is faster to ship, (b) is exact

@@ -1,0 +1,57 @@
+#!/bin/sh
+# Demo stand-in for gh. It answers the two read-only calls that fleetdeck
+# makes (`gh pr view <url> --json ...` and the review-threads GraphQL query)
+# with made-up data, so the demo never calls GitHub.
+
+check() { printf '{"__typename":"CheckRun","status":"COMPLETED","conclusion":"%s"}' "$1"; }
+pending() { printf '{"__typename":"CheckRun","status":"IN_PROGRESS","conclusion":""}'; }
+
+view() {
+  # view <number> <title> <state> <draft> <mergeable> <merge state> <review> <checks...>
+  n=$1 title=$2 state=$3 draft=$4 mergeable=$5 merge=$6 review=$7
+  shift 7
+  checks=$(printf '%s,' "$@")
+  printf '{"number":%s,"title":"%s","state":"%s","isDraft":%s,"mergeable":"%s","mergeStateStatus":"%s","reviewDecision":"%s","statusCheckRollup":[%s]}\n' \
+    "$n" "$title" "$state" "$draft" "$mergeable" "$merge" "$review" "${checks%,}"
+}
+
+threads() {
+  # threads <unresolved> <resolved>
+  nodes=""
+  i=0; while [ $i -lt "$1" ]; do nodes="$nodes{\"isResolved\":false},"; i=$((i + 1)); done
+  i=0; while [ $i -lt "$2" ]; do nodes="$nodes{\"isResolved\":true},"; i=$((i + 1)); done
+  printf '{"data":{"repository":{"pullRequest":{"reviewThreads":{"nodes":[%s]}}}}}\n' "${nodes%,}"
+}
+
+case "$1 $2" in
+  "pr view")
+    case $3 in
+      */acme/shop/pull/412) view 412 "Retry declined card payments once with a fresh idempotency key" OPEN false MERGEABLE BLOCKED REVIEW_REQUIRED \
+        "$(check SUCCESS)" "$(check SUCCESS)" "$(check SUCCESS)" "$(pending)" ;;
+      */acme/shop/pull/418) view 418 "Cart drawer: focus trap, labels and live region" OPEN true MERGEABLE DRAFT "" \
+        "$(check SUCCESS)" "$(pending)" "$(pending)" ;;
+      */acme/shop/pull/415) view 415 "Cookie consent banner with the new legal copy" OPEN false CONFLICTING DIRTY REVIEW_REQUIRED \
+        "$(check SUCCESS)" "$(check FAILURE)" "$(check SUCCESS)" ;;
+      */acme/docs-site/pull/88) view 88 "Release notes: September" OPEN false MERGEABLE CLEAN APPROVED \
+        "$(check SUCCESS)" "$(check SUCCESS)" ;;
+      */acme/billing-api/pull/77) view 77 "Webhooks: exponential backoff and a dead-letter queue" OPEN false MERGEABLE BLOCKED CHANGES_REQUESTED \
+        "$(check SUCCESS)" "$(check FAILURE)" "$(check SUCCESS)" ;;
+      */pull/*) n=${3##*/}; view "$n" "Merged change" MERGED false UNKNOWN UNKNOWN APPROVED "$(check SUCCESS)" ;;
+      *) echo "gh: not a pull request URL: $3" >&2; exit 1 ;;
+    esac
+    ;;
+  "api graphql")
+    n=""
+    for a in "$@"; do case $a in n=*) n=${a#n=} ;; esac; done
+    case $n in
+      412) threads 2 3 ;;
+      415) threads 1 0 ;;
+      77) threads 1 4 ;;
+      *) threads 0 1 ;;
+    esac
+    ;;
+  *)
+    echo "gh (demo): unsupported call: $*" >&2
+    exit 1
+    ;;
+esac

@@ -1,0 +1,9 @@
+endpoint_task_id=dark-mode-toggle
+harness=claude
+kind=ship
+mode=no-mistakes
+yolo=off
+branch=fm/dark-mode-toggle
+model=claude-opus-5-5
+effort=high
+backend=herdr

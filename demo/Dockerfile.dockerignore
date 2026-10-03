@@ -1,0 +1,5 @@
+target
+.git
+.claude
+demo/*.gif
+demo/*.png

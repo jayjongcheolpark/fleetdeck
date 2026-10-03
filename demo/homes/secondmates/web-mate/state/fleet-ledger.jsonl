@@ -1,0 +1,4 @@
+{"v":1,"ts":@T-200000@,"event":"task.merged","task":"button-focus-ring","via":"pr","pr":"https://github.com/acme/shop/pull/398"}
+{"v":1,"ts":@T-170500@,"event":"task.dispatched","task":"dark-mode-toggle","kind":"ship","project":"shop","harness":"claude","model":"claude-opus-5-5"}
+{"v":1,"ts":@T-4000@,"event":"task.dispatched","task":"cart-a11y","kind":"ship","project":"shop","harness":"claude","model":"claude-sonnet-5-5"}
+{"v":1,"ts":@T-300@,"event":"task.pr_ready","task":"cart-a11y","pr":"https://github.com/acme/shop/pull/418"}

@@ -1,0 +1,7 @@
+endpoint_task_id=nightly-backup-audit
+harness=codex
+kind=scout
+mode=report
+model=gpt-5.5
+effort=medium
+backend=tmux

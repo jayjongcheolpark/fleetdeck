@@ -1,0 +1,11 @@
+window=default:w2:p2
+endpoint_task_id=web-mate
+harness=claude
+kind=secondmate
+mode=secondmate
+yolo=off
+model=claude-opus-5-5
+effort=high
+backend=herdr
+home=@ROOT@/secondmates/web-mate
+projects=shop

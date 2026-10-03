@@ -1,0 +1,16 @@
+#!/bin/sh
+# Demo stand-in for ssh. It runs the remote command on this machine, with
+# $FLEETDECK_DEMO_ROOT/<host> as the home directory and <host> as the host
+# name, so fleetdeck's real ssh transport reads the "remote" demo home.
+while [ $# -gt 0 ]; do
+  case $1 in
+    -o) shift 2 ;;
+    --) shift; break ;;
+    -*) shift ;;
+    *) host=$1; shift ;;
+  esac
+done
+HOME=$FLEETDECK_DEMO_ROOT/$host
+[ -d "$HOME" ] || { echo "ssh: Could not resolve hostname $host" >&2; exit 255; }
+export HOME DEMO_HOSTNAME="$host"
+cd "$HOME" && exec sh -c "$*"

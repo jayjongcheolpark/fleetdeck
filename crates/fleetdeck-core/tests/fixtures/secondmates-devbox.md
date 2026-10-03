@@ -1,0 +1,1 @@
+- bot-mate - Own one product area for the main firstmate (trimmed summary). (home: /home/dev/secondmates/bot-mate; scope: all work on the chat-bot repository reviews, fixes, features; projects: chat-bot; added 2026-09-30)

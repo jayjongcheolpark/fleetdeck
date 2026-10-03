@@ -1,0 +1,8 @@
+{"v":1,"ts":1790910059,"event":"task.merged","task":"weather-open-on-press","via":"pr","pr":"https://github.com/acme/fleet-tools/pull/7"}
+{"v":1,"ts":1790974643,"event":"task.pr_ready","task":"status-lamp-main-only","pr":"https://github.com/acme/fleet-tools/pull/9"}
+{"v":1,"ts":1790975186,"event":"task.cleaned_up","task":"status-lamp-main-only"}
+{"v":1,"ts":1790996746,"event":"task.dispatched","task":"fleetdeck-v1","kind":"ship","project":"fleetdeck","harness":"claude","model":"claude-opus-5-5"}
+{"v":1,"ts":1790997049,"event":"task.status","task":"shop-mate","state":"resolved","key":"pr480-french-notes","text":" owner chose (a). Relayed to the PR https://github.com/acme/shop/pull/48 ..."}
+{"v":1,"ts":1790997090,"event":"task.status","task":"shop-mate","state":"resolved","key":"pr480-staging-redeploy-2","text":" closed as deployed. I confirmed it myself: a cache-busted read of /assets/index ..."}
+{"v":1,"ts":1790997146,"event":"task.status","task":"shop-mate","state":"done","key":"child-outcome-gift-card-tax-tags-done-4a1b2c3d","text":" child gift-card-tax-tags done: correction to my blocked line: staging ..."}
+{"v":1,"ts":1790999999,"event":"task.sta

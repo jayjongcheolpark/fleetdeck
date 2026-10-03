@@ -1,0 +1,14 @@
+window=default:w3:p2
+endpoint_task_id=checkout-retry
+worktree=@ROOT@/.worktrees/shop-1a2b3c/1/shop
+project=@ROOT@/firstmate/projects/shop
+harness=claude
+kind=ship
+mode=no-mistakes
+yolo=off
+branch=fm/checkout-retry
+model=claude-opus-5-5
+effort=high
+busy_gen=g@T-7200@.1001.2002
+backend=herdr
+pr=https://github.com/acme/shop/pull/412

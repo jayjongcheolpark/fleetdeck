@@ -1,0 +1,12 @@
+window=default:w6:p2
+endpoint_task_id=consent-banner
+worktree=@ROOT@/.worktrees/shop-1a2b3c/3/shop
+project=@ROOT@/firstmate/projects/shop
+harness=claude
+kind=ship
+mode=direct-PR
+yolo=off
+branch=fm/consent-banner
+model=claude-sonnet-5-5
+effort=medium
+backend=herdr

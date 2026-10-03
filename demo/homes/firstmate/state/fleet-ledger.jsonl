@@ -1,0 +1,11 @@
+{"v":1,"ts":@T-200000@,"event":"task.merged","task":"button-focus-ring","via":"pr","pr":"https://github.com/acme/shop/pull/398"}
+{"v":1,"ts":@T-90000@,"event":"task.merged","task":"cdn-cache-headers","via":"pr","pr":"https://github.com/acme/shop/pull/405"}
+{"v":1,"ts":@T-86400@,"event":"task.cleaned_up","task":"cdn-cache-headers"}
+{"v":1,"ts":@T-80500@,"event":"task.dispatched","task":"search-latency","kind":"ship","project":"shop","harness":"codex","model":"gpt-5.5"}
+{"v":1,"ts":@T-16000@,"event":"task.pr_ready","task":"consent-banner","pr":"https://github.com/acme/shop/pull/415"}
+{"v":1,"ts":@T-9000@,"event":"task.dispatched","task":"release-notes-sept","kind":"ship","project":"docs-site","harness":"claude","model":"claude-sonnet-5-5"}
+{"v":1,"ts":@T-7200@,"event":"task.dispatched","task":"checkout-retry","kind":"ship","project":"shop","harness":"claude","model":"claude-opus-5-5"}
+{"v":1,"ts":@T-2400@,"event":"task.pr_ready","task":"release-notes-sept","pr":"https://github.com/acme/docs-site/pull/88"}
+{"v":1,"ts":@T-1500@,"event":"task.status","task":"search-latency","state":"needs-decision","key":"cache-strategy","text":" two ways to cut the facet query: (a) cache facet counts for 60 s ..."}
+{"v":1,"ts":@T-1200@,"event":"task.status","task":"web-mate","state":"blocked","key":"dark-mode-tokens","text":" dark-mode-toggle needs the new color tokens from the design-system ..."}
+{"v":1,"ts":@T-900@,"event":"task.pr_ready","task":"checkout-retry","pr":"https://github.com/acme/shop/pull/412"}
